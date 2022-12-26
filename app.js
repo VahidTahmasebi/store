@@ -127,6 +127,23 @@ class UI {
 
   cartLogic() {
     clearModalBtn.addEventListener("click", () => this.clearCart());
+
+    // Add product amount to cart
+    cartContent.addEventListener("click", (event) => {
+      if (event.target.classList.contains("fa-chevron-up")) {
+        const addQuantity = event.target;
+        // get item from cart
+        const addedItem = cart.find(
+          (cItem) => cItem.id == addQuantity.dataset.id,
+        );
+        addedItem.quantity++;
+        // update cart value
+        this.setCartValue(cart);
+        // save cart
+        Storage.saveCart(cart);
+        addQuantity.nextElementSibling.innerText = addedItem.quantity;
+      }
+    });
   }
 
   //   Handler to clear cart products
