@@ -6,6 +6,8 @@ const backDrop = document.querySelector(".backDrop");
 const confirmModalBtn = document.querySelector(".confirmModalBtn");
 
 const productsDOM = document.querySelector(".productsCenter");
+const cartTotal = document.querySelector(".cartTotal");
+const cartItems = document.querySelector(".cartItems");
 
 let cart = [];
 
@@ -64,8 +66,22 @@ class UI {
         console.log(cart);
         // update local
         Storage.saveCart(cart);
+
+        this.setCartValue(cart);
       });
     });
+  }
+
+  setCartValue(cart) {
+    let tempCartItem = 0;
+    const totalPrice = cart.reduce((acc, curr) => {
+      tempCartItem += curr.quantity;
+      return acc + curr.quantity * curr.price;
+    }, 0);
+    //   The total amount of the shopping cart
+    cartTotal.innerText = `totalPrice : ${totalPrice.toFixed(2)} $`;
+    //   Set the number of products in the shopping cart
+    cartItems.innerHTML = tempCartItem;
   }
 }
 
