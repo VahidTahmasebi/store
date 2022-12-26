@@ -5,19 +5,44 @@ const cartModal = document.querySelector(".cartModal");
 const backDrop = document.querySelector(".backDrop");
 const confirmModalBtn = document.querySelector(".confirmModalBtn");
 
+const productsDOM = document.querySelector(".productsCenter");
+
 class Products {
   getProduct() {
     return productsData;
   }
 }
 
-class UI {}
+class UI {
+  displayProducts(products) {
+    let result = "";
+    products.forEach((item) => {
+      result += `
+        <div class="product">
+        <div class="productImg">
+          <img src="${item.imageUrl}" alt="" />
+        </div>
+        <div class="productDesc">
+          <p class="productPrice">$ ${item.price}</p>
+          <p class="productTitle">${item.title}</p>
+        </div>
+        <div class="productBtnDiv">
+          <button class="btn productBtn" data-id=${item.id}>Add to cart</button>
+        </div>
+      </div>
+        `;
+      productsDOM.innerHTML = result;
+    });
+  }
+}
 
 class Storage {}
 
 document.addEventListener("DOMContentLoaded", () => {
   const product = new Products();
   const productsData = product.getProduct();
+  const ui = new UI();
+  ui.displayProducts(productsData);
   console.log(productsData);
 });
 
