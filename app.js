@@ -60,9 +60,9 @@ class UI {
         btn.disable = true;
 
         // get id product
-        const addedProduct = Storage.getProduct(id);
+        const addedProduct = { ...Storage.getProduct(id), quantity: 1 };
         // Assigning a value of one to the product in the shopping cart
-        cart = [...cart, { ...addedProduct, quantity: 1 }];
+        cart = [...cart, addedProduct];
         console.log(cart);
         // update local
         Storage.saveCart(cart);
