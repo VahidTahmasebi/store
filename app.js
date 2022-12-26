@@ -9,6 +9,7 @@ const productsDOM = document.querySelector(".productsCenter");
 const cartTotal = document.querySelector(".cartTotal");
 const cartItems = document.querySelector(".cartItems");
 const cartContent = document.querySelector(".cartContent");
+const clearModalBtn = document.querySelector(".clearModalBtn");
 
 let cart = [];
 
@@ -49,7 +50,7 @@ class UI {
 
     buttons.forEach((btn) => {
       const id = btn.dataset.id;
-      const isInCart = cart.find((p) => p.id === id);
+      const isInCart = cart.find((p) => p.id === parseInt(id));
       //   If there is a product in the shopping cart
       if (isInCart) {
         btn.innerHTML = `<i class="fa-solid fa-check"></i>`;
@@ -74,7 +75,7 @@ class UI {
       });
     });
   }
-
+  // Update the price and amount of the shopping cart
   setCartValue(cart) {
     let tempCartItem = 0;
     const totalPrice = cart.reduce((acc, curr) => {
@@ -109,13 +110,36 @@ class UI {
     <i class="fas fa-trash removeItem" data-id=${cartItem.id}></i>`;
     cartContent.appendChild(div);
   }
+
+  // Update shopping cart
   setupApp() {
     // get cart from storage
-    const cart = Storage.getCart() || [];
+    cart = Storage.getCart() || [];
     // add cartItem in storage
     cart.forEach((cartItem) => this.addCartItem(cartItem));
     // set value : price + item
-    this.setCartValue(cart)
+    this.setCartValue(cart);
+  }
+
+  cartLogic() {
+    clearModalBtn.addEventListener("click", () => this.clearCart());
+  }
+
+  //   Handler to clear cart products
+  clearCart() {
+    cart.forEach((cItem) => this.removeItem(cItem.id));
+
+    while (cartContent.children.length) {
+      cartContent.removeChild(cartContent.children[0]);
+    }
+    closeModalFunction();
+  }
+
+  //  handler remove item
+  removeItem(id) {
+    cart = cart.filter((cItem) => cItem.id !== id);
+    this.setCartValue(cart);
+    Storage.saveCart(cart);
   }
 }
 
@@ -146,8 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
   ui.setupApp();
   ui.displayProducts(productsData);
   ui.getAddToCartBtns();
+  ui.cartLogic();
   Storage.saveProducts(productsData);
 });
+
 // shopping cart modal
 function showModalFunction() {
   backDrop.style.display = "block";
