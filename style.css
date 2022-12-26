@@ -132,3 +132,113 @@ body {
   background-color: var(--secondaryColor);
   cursor: pointer;
 }
+
+/* modal */
+
+.backDrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.cartModal {
+  width: 30rem;
+  min-height: 200px;
+  position: absolute;
+  top: -100%;
+  left: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 10;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: var(--mainWhite);
+  opacity: 0;
+  box-shadow: 0 20px 120px gray;
+  transition: all 0.5s ease-in-out;
+}
+.cartTitle {
+  text-align: center;
+}
+.cartContent {
+  padding: 1rem;
+}
+.cartItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.cartImg {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+}
+.cartItemDesc {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cartItemDesc h5 {
+  margin-top: 10px;
+  color: var(--mainGrey);
+}
+.cartItemController {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.cartItemController i.fa-chevron-up {
+  font-weight: bold;
+  color: var(--primaryColor);
+  cursor: pointer;
+}
+.cartItemController i.fa-chevron-down {
+  font-weight: bold;
+  color: var(--meinRed);
+  cursor: pointer;
+}
+.removeItem {
+  cursor: pointer;
+}
+.cartFooter {
+  text-align: center;
+}
+
+.cartModal button {
+  padding: 8px;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  font-weight: bold;
+  color: var(--primaryColor);
+  background-color: var(--secondaryColor);
+  cursor: pointer;
+}
+.clearModalBtn {
+  margin: 0 10px;
+  border: 1px solid var(--primaryColor) !important;
+  background-color: var(--mainWhite) !important;
+}
+button:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .cartModal {
+    width: calc(100vw - 2rem);
+    max-width: 50rem;
+    left: 5% !important;
+    padding: 0;
+  }
+}
