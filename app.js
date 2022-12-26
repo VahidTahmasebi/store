@@ -7,12 +7,16 @@ const confirmModalBtn = document.querySelector(".confirmModalBtn");
 
 const productsDOM = document.querySelector(".productsCenter");
 
+let cart = [];
+
+// Product receiving class
 class Products {
   getProduct() {
     return productsData;
   }
 }
 
+// display products Class
 class UI {
   displayProducts(products) {
     let result = "";
@@ -34,15 +38,50 @@ class UI {
       productsDOM.innerHTML = result;
     });
   }
+
+  // Get the desired product ID
   getAddToCartBtns() {
     const productBtns = document.querySelectorAll(".productBtn");
     const buttons = [...productBtns];
+
+    buttons.forEach((btn) => {
+      const id = btn.dataset.id;
+      const isInCart = cart.find((p) => p.id === id);
+      //   If there is a product in the shopping cart
+      if (isInCart) {
+        btn.innerHTML = `<i class="fa-solid fa-check"></i>`;
+        btn.disable = true;
+      }
+      //   If the add to cart button is clicked
+      btn.addEventListener("click", (event) => {
+        event.target.innerHTML = `<i class="fa-solid fa-check"></i>`;
+        btn.disable = true;
+
+        // get id product
+        const addedProduct = Storage.getProduct(id);
+        // Assigning a value of one to the product in the shopping cart
+        cart = [...cart, { ...addedProduct, quantity: 1 }];
+        console.log(cart);
+        // update local
+        Storage.saveCart(cart);
+      });
+    });
   }
 }
 
+// local storage class
 class Storage {
   static saveProducts(products) {
     localStorage.setItem("products", JSON.stringify(products));
+  }
+  //   Receive products from local
+  static getProduct(id) {
+    const products = JSON.parse(localStorage.getItem("products"));
+    // Find the desired ID in local products
+    return products.find((p) => p.id === parseInt(id));
+  }
+  static saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 }
 
