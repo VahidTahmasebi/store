@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <section>
+      <!-- navbar -->
+      <nav class="navbar">
+        <div class="navCenter">
+          <span class="navIcon">
+            <i class="fas fa-bars navBtn"></i>
+          </span>
+          <h1>Vahid Store</h1>
+          <div class="cartBtn">
+            <span class="navIcon">
+              <i class="fas fa-cart-plus navBtn"></i>
+              <span class="cartItems">0</span>
+            </span>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <!-- products -->
+    <section class="products">
+      <div class="productTitle">
+        <h2>products</h2>
+      </div>
+
+      <!-- product container -->
+
+      <div class="productsCenter"></div>
+    </section>
+
+    <!-- modal cart -->
+    <section class="cartCont">
+      <div class="backDrop"></div>
+
+      <div class="cartModal">
+        <p class="cartTitle">Your Cart</p>
+        <div class="cratContent"></div>
+        <div class="cartFooter">
+          <span class="cartTotal">Amount : 0</span>
+          <button class="clearModalBtn">Product delete</button>
+          <button class="confirmModalBtn">Confirm</button>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
