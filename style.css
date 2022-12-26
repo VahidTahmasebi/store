@@ -1,0 +1,71 @@
+@import url(//fonts.googleapis.com/css?family=Vazirmatn);
+
+:root {
+  --mainSpacing: 0.1rem;
+  --mainTransition: all 0.3s linear;
+  --bodyColor: #f6f6f6;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainGrey: #7c7c7c;
+  --meinRed: #db2777;
+  --primaryColor: #6d28d9;
+  --secondaryColor: #ede9fe;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Vazirmatn", tahoma, Arial;
+}
+body {
+  background-color: var(--bodyColor);
+  color: var(--mainBlack);
+}
+.navbar {
+  width: 100%;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondaryColor);
+  z-index: 1;
+}
+.navCenter {
+  width: 90%;
+  max-width: 1170px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navCenter .navBtn {
+  font-size: 1.5rem;
+  color: var(--primaryColor);
+}
+.navBtn:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.navbar h1 {
+  font-weight: 800;
+  color: var(--mainBlack);
+}
+.cartBtn {
+  position: relative;
+}
+.cartItems {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  line-height: 20px;
+  color: var(--mainWhite);
+  background-color: var(--meinRed);
+  cursor: pointer;
+}
