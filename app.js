@@ -8,6 +8,7 @@ const confirmModalBtn = document.querySelector(".confirmModalBtn");
 const productsDOM = document.querySelector(".productsCenter");
 const cartTotal = document.querySelector(".cartTotal");
 const cartItems = document.querySelector(".cartItems");
+const cartContent = document.querySelector(".cartContent");
 
 let cart = [];
 
@@ -66,8 +67,10 @@ class UI {
         console.log(cart);
         // update local
         Storage.saveCart(cart);
-
+        // Enter the shopping cart amount
         this.setCartValue(cart);
+        // Passing data to the shopping cart
+        this.addCartItem(addedProduct);
       });
     });
   }
@@ -79,9 +82,40 @@ class UI {
       return acc + curr.quantity * curr.price;
     }, 0);
     //   The total amount of the shopping cart
-    cartTotal.innerText = `totalPrice : ${totalPrice.toFixed(2)} $`;
+    cartTotal.innerText = `Total price : ${totalPrice.toFixed(2)} $`;
     //   Set the number of products in the shopping cart
     cartItems.innerHTML = tempCartItem;
+  }
+
+  // Shopping cart structure
+  addCartItem(cartItem) {
+    const div = document.createElement("div");
+    div.classList.add("cartItem");
+    div.innerHTML = `
+    <img
+      class="cartImg"
+      src="${cartItem.imageUrl}"
+      alt=""
+    />
+    <div class="cartItemDesc">
+      <p>${cartItem.title}</p>
+      <h5>$ ${cartItem.price}</h5>
+    </div>
+    <div class="cartItemController">
+      <i class="fas fa-chevron-up" data-id=${cartItem.id}></i>
+      <p>${cartItem.quantity}</p>
+      <i class="fas fa-chevron-down"data-id=${cartItem.id}></i>
+    </div>
+    <i class="fas fa-trash removeItem" data-id=${cartItem.id}></i>`;
+    cartContent.appendChild(div);
+  }
+  setupApp() {
+    // get cart from storage
+    const cart = Storage.getCart() || [];
+    // add cartItem in storage
+    cart.forEach((cartItem) => this.addCartItem(cartItem));
+    // set value : price + item
+    this.setCartValue(cart)
   }
 }
 
@@ -96,8 +130,12 @@ class Storage {
     // Find the desired ID in local products
     return products.find((p) => p.id === parseInt(id));
   }
+  //   Save shopping cart
   static saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
+  }
+  static getCart() {
+    return JSON.parse(localStorage.getItem("cart"));
   }
 }
 
@@ -105,12 +143,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const product = new Products();
   const productsData = product.getProduct();
   const ui = new UI();
+  ui.setupApp();
   ui.displayProducts(productsData);
-  console.log(productsData);
   ui.getAddToCartBtns();
   Storage.saveProducts(productsData);
 });
-
+// shopping cart modal
 function showModalFunction() {
   backDrop.style.display = "block";
   cartModal.style.opacity = "1";
