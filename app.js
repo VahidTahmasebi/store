@@ -13,6 +13,8 @@ const clearModalBtn = document.querySelector(".clearModalBtn");
 
 let cart = [];
 
+let buttonDOM = [];
+
 // Product receiving class
 class Products {
   getProduct() {
@@ -45,11 +47,13 @@ class UI {
 
   // Get the desired product ID
   getAddToCartBtns() {
-    const productBtns = document.querySelectorAll(".productBtn");
-    const buttons = [...productBtns];
+    // get all buttons
+    const productBtns = [...document.querySelectorAll(".productBtn")];
+    buttonDOM = productBtns;
 
-    buttons.forEach((btn) => {
+    productBtns.forEach((btn) => {
       const id = btn.dataset.id;
+
       const isInCart = cart.find((p) => p.id === parseInt(id));
       //   If there is a product in the shopping cart
       if (isInCart) {
@@ -140,6 +144,17 @@ class UI {
     cart = cart.filter((cItem) => cItem.id !== id);
     this.setCartValue(cart);
     Storage.saveCart(cart);
+
+    this.getSingleButton(id);
+  }
+
+  //   update text and disable product
+  getSingleButton(id) {
+    const button = buttonDOM.find(
+      (btn) => parseInt(btn.dataset.id) === parseInt(id),
+    );
+    button.innerText = "Add to cart";
+    buttonDOM.disable = false;
   }
 }
 
