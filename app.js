@@ -142,6 +142,13 @@ class UI {
         // save cart
         Storage.saveCart(cart);
         addQuantity.nextElementSibling.innerText = addedItem.quantity;
+      } else if (event.target.classList.contains("fa-trash")) {
+        const removeItem = event.target;
+        const _removeItem = cart.find((c) => c.id == removeItem.dataset.id);
+        this.removeItem(_removeItem.id);
+        // update cart storage
+        Storage.saveCart(cart);
+        cartContent.removeChild(removeItem.parentElement);
       }
     });
   }
