@@ -34,9 +34,17 @@ class UI {
       productsDOM.innerHTML = result;
     });
   }
+  getAddToCartBtns() {
+    const productBtns = document.querySelectorAll(".productBtn");
+    const buttons = [...productBtns];
+  }
 }
 
-class Storage {}
+class Storage {
+  static saveProducts(products) {
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const product = new Products();
@@ -44,6 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   ui.displayProducts(productsData);
   console.log(productsData);
+  ui.getAddToCartBtns();
+  Storage.saveProducts(productsData);
 });
 
 function showModalFunction() {
