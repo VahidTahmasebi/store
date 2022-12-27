@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Vazirmatn);
+@import url(//fonts.googleapis.com/css?family=Poppins);
 :root {
   --mainSpacing: 0.1rem;
   --mainTransition: all 0.3s linear;
@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Vazirmatn", tahoma, Arial;
+  font-family: "Poppins", tahoma, Arial;
 }
 body {
   background-color: var(--bodyColor);
@@ -60,7 +60,7 @@ body {
   width: 20px;
   height: 20px;
   position: absolute;
-  top: -15px;
+  top: -10px;
   right: -10px;
   display: flex;
   justify-content: center;
