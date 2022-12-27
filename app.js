@@ -144,11 +144,24 @@ class UI {
         addQuantity.nextElementSibling.innerText = addedItem.quantity;
       } else if (event.target.classList.contains("fa-trash")) {
         const removeItem = event.target;
-        const _removeItem = cart.find((c) => c.id == removeItem.dataset.id);
-        this.removeItem(_removeItem.id);
+        const cleanItem = cart.find((c) => c.id == removeItem.dataset.id);
+        this.removeItem(cleanItem.id);
         // update cart storage
         Storage.saveCart(cart);
         cartContent.removeChild(removeItem.parentElement);
+      } else if (event.target.classList.contains("fa-chevron-down")) {
+        const subQuantity = event.target;
+        const subtractedItem = cart.find((c) => c.id == subQuantity.dataset.id);
+        if (subtractedItem.quantity === 1) {
+          this.removeItem(subtractedItem.id);
+          cartContent.removeChild(subQuantity.parentElement.parentElement);
+          return;
+        }
+        subtractedItem.quantity--;
+        this.setCartValue(cart);
+        // save cart
+        Storage.saveCart(cart);
+        subQuantity.previousElementSibling.innerText = subtractedItem.quantity;
       }
     });
   }
